@@ -9,14 +9,13 @@ const headers = { Accept: "application/json" };
 export default new Vuex.Store({
   state: {
     currentJoke: "This is a joke",
-    allJokes: []
+    allJokes: [],
   },
   mutations: {
-    //syncrous
     setCurrentJoke(state, payload) {
       state.currentJoke = payload;
       state.allJokes.push(payload);
-    }
+    },
   },
   actions: {
     //asyncronous
@@ -24,11 +23,12 @@ export default new Vuex.Store({
       const joke = await fetch(url, { headers });
       const j = await joke.json();
       state.commit("setCurrentJoke", j.joke);
-    }
+      // name of method, data
+    },
   },
   modules: {},
   getters: {
-    getCurrentJoke: state => state.currentJoke,
-    getAllJokes: state => state.allJokes
-  }
+    getCurrentJoke: (state) => state.currentJoke,
+    getAllJokes: (state) => state.allJokes,
+  },
 });
