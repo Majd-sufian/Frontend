@@ -9,9 +9,10 @@
     <br />
 
     <div class="restaurant__info">
-      <h1>Dinner in the Sky</h1>
+      <h1>{{ restaurant.name }}</h1>
+      <span>- {{ restaurant.address }}</span>
       <div class="restaurant__actions">
-        <button class="home__user_button">Edit</button>
+        <button class="home__user_button" @click="updateRestaurant">Edit</button>
         <button class="home__user_button">Delete</button>
       </div>
     </div>
@@ -40,24 +41,58 @@
         humour and the like).
       </p>
     </div>
-    <br /><br />
+    <br />
+    <br />
     <div class="restaurant__comments">
       <h1>Coomments</h1>
-      <ul>
-        <dl>- Good One</dl>
-        <dl>- Best Place ever</dl>
-        <dl>- Not recommended</dl>
+      <ul v-for="(comment ,idx) in this.restaurant.comments" :key="idx">
+        <dl>- {{comment.content}}</dl>
       </ul>
     </div>
   </div>
 </template>
 <script>
+import Vue from "vue";
 export default {
-  computed: {
-    // jokes() {
-    // return this.$store.getters.getAllJokes;
+  data() {
+    return {
+      restaurant: []
+    };
+  },
+  methods: {
+    updateRestaurant() {
+      const id = this.$route.params.id;
+      Vue.axios.patch(
+        `http://localhost:3000/api/v1/restaurants/${id}`,
+        { restaurant: { name: "my res", address: "Jerusalem" } },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-User-Email": "mail@gmail.com",
+            "X-User-Token": "Wgx6uP9ZXhriHpD3ub_v"
+          }
+        }
+      );
+    }
+    // deleteRestaurant() {
+    //   Vue.axios.delete(`http://localhost:3000/api/v1/restaurants/${id}`, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "X-User-Email": "mail@gmail.com",
+    //       "X-User-Token": "Wgx6uP9ZXhriHpD3ub_v"
+    //     }
+    //   });
+    //   this.$router.push("http://localhost:8080/");
     // }
   },
+  mounted() {
+    const id = this.$route.params.id;
+    Vue.axios
+      .get(`http://localhost:3000/api/v1/restaurants/${id}`)
+      .then(response => {
+        this.restaurant = response.data;
+      });
+  }
 };
 </script>
 <style scoped>

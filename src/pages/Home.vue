@@ -1,45 +1,39 @@
 <template>
   <div class="home">
-    <div class="home_restaurants">
-      <ul>
-        <dl>- <router-link to="/restaurant/4">Ithaa</router-link></dl>
-        <dl>
-          - <router-link to="/restaurant/4">Dinner in the Sky</router-link>
-        </dl>
-        <dl>
-          - <router-link to="/restaurant/4">Parallax Restaurant</router-link>
-        </dl>
-      </ul>
-    </div>
+    <ul v-for="({name, id},idx) in this.restaurants" :key="idx">
+      <dl>
+        <span>{{idx+1 }}-</span>
+        <router-link :to="`/restaurant/${id}`">{{ name }}</router-link>
+      </dl>
+    </ul>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-
+// import { mapActions } from "vuex";
 import Vue from "vue";
 
 export default {
   name: "Home",
-
-  methods: {
-    getRestaurants() {
-      Vue.axios.get('localhost:3000/api/v1/restaurants').then((response) => {
-        debugger;
-        console.log(response.data);
-      });
-    },
+  data() {
+    return {
+      restaurants: []
+    };
   },
-  created() {
-    this.getRestaurants();
-  },
-  computed: {
-    // joke() {
-    // return this.getCurrentJoke;
-    // }
-  },
-  // mounted() {
-  // this.joke = this.$store.getters.getCurrentJoke;
+  mounted() {
+    Vue.axios.get("http://localhost:3000/api/v1/restaurants").then(response => {
+      this.restaurants = response.data;
+    });
+  }
+  // mounted: function() {
+  // }
+  // created() {
+  //   // debugger;
+  // },
+  // computed: {
+  //   // ...mapGetters({ restaurants: "getAllRestaurants" })
+  //   ...mapActions({ restaurants: "setRestaurants" });
+  //   debugger;
   // }
 };
 </script>
