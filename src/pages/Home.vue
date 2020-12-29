@@ -71,18 +71,22 @@
 <script>
 // @ is an alias to /src
 
-import { mapActions, mapGetters } from "vuex";
+import Vue from "vue";
+
 export default {
   name: "Home",
   methods: {
-    ...mapActions({ addJoke: "setCurrentJoke" }),
-    // addJoke() {
-    // this.$store.dispatch("setCurrentJoke");
-    // this.setCurrentJoke();
-    // }
+    getRestaurants() {
+      Vue.axios.get('localhost:3000/api/v1/restaurants').then((response) => {
+        debugger;
+        console.log(response.data);
+      });
+    },
+  },
+  created() {
+    this.getRestaurants();
   },
   computed: {
-    ...mapGetters({ joke: "getCurrentJoke" }),
     // joke() {
     // return this.getCurrentJoke;
     // }
