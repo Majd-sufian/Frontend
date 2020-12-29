@@ -23,13 +23,13 @@ const routes = [
   //   path: "/sign_in",
   //   name: "Home",
   //   component: () =>
-  //     import(/* webpackChunkName: "about" */ "../pages/Singin.vue"),
+  //     import(/* webpackChunkName: "about" */ "../views/Singin.vue"),
   // },
   // {
   //   path: "/sign_up",
   //   name: "Home",
   //   component: () =>
-  //     import(/* webpackChunkName: "about" */ "../pages/SingUp.vue"),
+  //     import(/* webpackChunkName: "about" */ "../views/SingUp.vue"),
   // },
 ];
 
