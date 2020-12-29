@@ -60,17 +60,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-.restaurant {
-  margin: 40px;
-}
-.restaurant__info {
-  /* margin: 20px; */
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.home__user_button {
-  margin-right: 10px;
-}
-</style>
+
